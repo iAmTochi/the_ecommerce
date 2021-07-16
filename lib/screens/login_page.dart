@@ -30,8 +30,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Column(
                 children: [
-                  CustomInput(),
-                  CustomInput(),
+                  CustomInput(hintText: 'Enter your email'),
+                  CustomInput(hintText: 'Enter your password'),
                   CustomBtn(
                     text: "Login",
                     onPressed: () {
@@ -40,12 +40,15 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ],
               ),
-              CustomBtn(
-                text: "Create New Account",
-                onPressed: () {
-                  print("Clicked the create account button");
-                },
-                outlineBtn: true,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: CustomBtn(
+                  text: "Create New Account",
+                  onPressed: () {
+                    print("Clicked the create account button");
+                  },
+                  outlineBtn: true,
+                ),
               ),
             ],
           ),
