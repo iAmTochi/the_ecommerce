@@ -41,6 +41,21 @@ class _RegisterPageState extends State<RegisterPage> {
   String _registerEmail = "";
   String _registerPassword = "";
 
+  //focus Node for Input Fields
+  late FocusNode _passwordFocusNode;
+
+  @override
+  void initState() {
+    _passwordFocusNode = FocusNode();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,8 +75,24 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               Column(
                 children: [
-                  CustomInput(hintText: 'Enter your email'),
-                  CustomInput(hintText: 'Enter your password'),
+                  CustomInput(
+                    hintText: 'Enter your email',
+                    onChanged: (value) {
+                      _registerEmail = value;
+                    },
+                    onSubmitted: (value) {
+                      _passwordFocusNode.requestFocus();
+                    },
+                    textInputAction: TextInputAction.next,
+                  ),
+                  CustomInput(
+                    hintText: 'Enter your password',
+                    onChanged: (value) {
+                      _registerPassword = value;
+                    },
+                    focusNode: _passwordFocusNode,
+                    isPasswordField: true,
+                  ),
                   CustomBtn(
                     text: "Sign Up",
                     onPressed: () {

@@ -3,11 +3,25 @@ import 'package:the_ecommerce/constants.dart';
 
 class CustomInput extends StatelessWidget {
   final String? hintText;
+  // final FormFieldSetter<String>? onChanged;
+  // final FormFieldSetter<String>? onSubmitted;
+  final Function(String)? onChanged;
+  final Function(String)? onSubmitted;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final bool? isPasswordField;
 
-  CustomInput({required this.hintText});
+  CustomInput(
+      {required this.hintText,
+      this.onChanged,
+      this.onSubmitted,
+      this.focusNode,
+      this.textInputAction,
+      this.isPasswordField});
 
   @override
   Widget build(BuildContext context) {
+    bool _isPasswordField = isPasswordField ?? false;
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: 8.0,
@@ -18,6 +32,11 @@ class CustomInput extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(
+        obscureText: _isPasswordField,
+        focusNode: focusNode,
+        onChanged: onChanged,
+        onSubmitted: onSubmitted,
+        textInputAction: textInputAction,
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hintText ?? "Hint Text ...",
