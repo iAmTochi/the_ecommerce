@@ -34,6 +34,8 @@ class _RegisterPageState extends State<RegisterPage> {
         });
   }
 
+  bool _registerFormLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,8 +61,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     text: "Sign Up",
                     onPressed: () {
                       // Open the Dialog
-                      _alertDialogBuilder();
+                      setState(() {
+                        _registerFormLoading = true;
+                      });
                     },
+                    isLoading: _registerFormLoading,
                   )
                 ],
               ),
