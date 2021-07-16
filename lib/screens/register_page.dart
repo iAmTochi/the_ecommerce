@@ -11,6 +11,29 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  //Build an alert dialog to display some errors
+  Future<void> _alertDialogBuilder() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Container(
+              child: Text("Just some random text for now"),
+            ),
+            actions: [
+              FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Close"),
+              )
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,9 +56,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   CustomInput(hintText: 'Enter your email'),
                   CustomInput(hintText: 'Enter your password'),
                   CustomBtn(
-                    text: "Register",
+                    text: "Sign Up",
                     onPressed: () {
-                      print("Clicked the register button");
+                      _alertDialogBuilder();
                     },
                   )
                 ],
@@ -43,9 +66,9 @@ class _RegisterPageState extends State<RegisterPage> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: CustomBtn(
-                  text: "Create New Account",
+                  text: "Back To Login",
                   onPressed: () {
-                    print("Clicked the create account button");
+                    Navigator.pop(context);
                   },
                   outlineBtn: true,
                 ),
