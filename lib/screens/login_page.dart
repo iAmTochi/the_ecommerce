@@ -32,7 +32,10 @@ class _LoginPageState extends State<LoginPage> {
               Column(
                 children: [
                   CustomInput(hintText: 'Enter your email'),
-                  CustomInput(hintText: 'Enter your password'),
+                  CustomInput(
+                    hintText: 'Enter your password',
+                    isPasswordField: true,
+                  ),
                   CustomBtn(
                     text: "Login",
                     onPressed: () {
