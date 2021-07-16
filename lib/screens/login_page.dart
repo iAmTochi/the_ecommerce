@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_ecommerce/constants.dart';
+import 'package:the_ecommerce/widgets/custom_btn.dart';
+import 'package:the_ecommerce/widgets/custom_input.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -26,8 +28,25 @@ class _LoginPageState extends State<LoginPage> {
                   style: Constants.boldHeading,
                 ),
               ),
-              Text("Input Fields"),
-              Text("Create Account Button"),
+              Column(
+                children: [
+                  CustomInput(),
+                  CustomInput(),
+                  CustomBtn(
+                    text: "Login",
+                    onPressed: () {
+                      print("Clicked the login button");
+                    },
+                  )
+                ],
+              ),
+              CustomBtn(
+                text: "Create New Account",
+                onPressed: () {
+                  print("Clicked the create account button");
+                },
+                outlineBtn: true,
+              ),
             ],
           ),
         ),
