@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Container(
                 padding: EdgeInsets.only(top: 24.0),
                 child: Text(
-                  "Welcome User, \nLogin to your account",
+                  "Create A New Account",
                   textAlign: TextAlign.center,
                   style: Constants.boldHeading,
                 ),
