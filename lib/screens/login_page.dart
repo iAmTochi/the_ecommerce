@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:the_ecommerce/constants.dart';
 import 'package:the_ecommerce/screens/register_page.dart';
@@ -12,6 +13,85 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  //Build an alert dialog to display some errors
+  Future<void> _alertDialogBuilder(String error) async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Container(
+              child: Text(error),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Close"),
+              )
+            ],
+          );
+        });
+  }
+
+  //Create a new user account
+  Future<String> _loginAccount() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _loginEmail, password: _loginPassword);
+      return 'authenticated';
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        return 'The password provided is too weak;';
+      } else if (e.code == 'email-already-in-user') {
+        return 'An account already exists for that email';
+      }
+
+      return e.message.toString();
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
+  //Submit form
+  void _submitForm() async {
+    setState(() {
+      _loginFormLoading = true;
+    });
+
+    String _loginAccountFeedback = await _loginAccount();
+    if (_loginAccountFeedback != null) {
+      _alertDialogBuilder(_loginAccountFeedback);
+      setState(() {
+        _loginFormLoading = false;
+      });
+    }
+  }
+
+  //Default Form Loading State
+  bool _loginFormLoading = false;
+
+  //Form Input Field Values
+  String _loginEmail = "";
+  String _loginPassword = "";
+
+  //focus Node for Input Fields
+  late FocusNode _passwordFocusNode;
+
+  @override
+  void initState() {
+    _passwordFocusNode = FocusNode();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,16 +111,33 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Column(
                 children: [
-                  CustomInput(hintText: 'Enter your email'),
+                  CustomInput(
+                    hintText: 'Enter your email',
+                    onChanged: (value) {
+                      _loginEmail = value;
+                    },
+                    onSubmitted: (value) {
+                      _passwordFocusNode.requestFocus();
+                    },
+                    textInputAction: TextInputAction.next,
+                  ),
                   CustomInput(
                     hintText: 'Enter your password',
+                    onChanged: (value) {
+                      _loginPassword = value;
+                    },
+                    focusNode: _passwordFocusNode,
                     isPasswordField: true,
+                    onSubmitted: (value) {
+                      _submitForm();
+                    },
                   ),
                   CustomBtn(
                     text: "Login",
                     onPressed: () {
-                      print("Clicked the login button");
+                      _submitForm();
                     },
+                    isLoading: _loginFormLoading,
                   )
                 ],
               ),
