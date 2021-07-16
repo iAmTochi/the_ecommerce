@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_ecommerce/constants.dart';
+import 'package:the_ecommerce/screens/register_page.dart';
 import 'package:the_ecommerce/widgets/custom_btn.dart';
 import 'package:the_ecommerce/widgets/custom_input.dart';
 
@@ -45,7 +46,11 @@ class _LoginPageState extends State<LoginPage> {
                 child: CustomBtn(
                   text: "Create New Account",
                   onPressed: () {
-                    print("Clicked the create account button");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterPage(),
+                        ));
                   },
                   outlineBtn: true,
                 ),
