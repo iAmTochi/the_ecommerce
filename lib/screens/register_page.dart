@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Text("Just some random text for now"),
             ),
             actions: [
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -58,6 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   CustomBtn(
                     text: "Sign Up",
                     onPressed: () {
+                      // Open the Dialog
                       _alertDialogBuilder();
                     },
                   )
