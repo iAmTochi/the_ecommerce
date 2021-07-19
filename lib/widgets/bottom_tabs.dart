@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:the_ecommerce/constants.dart';
 
 class BottomTabs extends StatefulWidget {
+  final int? selectedTab;
+  final Function(int) tabPressed;
+  BottomTabs({this.selectedTab, required this.tabPressed});
+
   @override
   _BottomTabsState createState() => _BottomTabsState();
 }
@@ -11,6 +15,8 @@ class _BottomTabsState extends State<BottomTabs> {
 
   @override
   Widget build(BuildContext context) {
+    _selectedTab = widget.selectedTab ?? 0;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -33,27 +39,22 @@ class _BottomTabsState extends State<BottomTabs> {
             imagePath: 'assets/images/tab_home.png',
             selected: _selectedTab == 0 ? true : false,
             onPressed: () {
-              setState(() {
-                _selectedTab = 0;
-              });
+              // widget.selectedTab ?? 0;
+              widget.tabPressed(0);
             },
           ),
           BottomTabBtn(
             imagePath: 'assets/images/tab_search.png',
             selected: _selectedTab == 1 ? true : false,
             onPressed: () {
-              setState(() {
-                _selectedTab = 1;
-              });
+              widget.tabPressed(1);
             },
           ),
           BottomTabBtn(
             imagePath: 'assets/images/tab_saved.png',
             selected: _selectedTab == 2 ? true : false,
             onPressed: () {
-              setState(() {
-                _selectedTab = 2;
-              });
+              widget.tabPressed(3);
             },
           ),
           BottomTabBtn(
