@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 padding: EdgeInsets.only(top: 24.0),
                 child: Text(
-                  "Welcome User, \nLogin to your account",
+                  "Welcome Back, \nLogin to your account",
                   textAlign: TextAlign.center,
                   style: Constants.boldHeading,
                 ),
