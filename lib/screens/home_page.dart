@@ -11,6 +11,21 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  late PageController _tabsPageController;
+  int _selectedTab = 0;
+
+  @override
+  void initState() {
+    _tabsPageController = PageController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabsPageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +34,12 @@ class _HomepageState extends State<Homepage> {
         children: [
           Expanded(
             child: PageView(
+              controller: _tabsPageController,
+              onPageChanged: (num) {
+                setState(() {
+                  _selectedTab = num;
+                });
+              },
               children: [
                 Container(
                   child: Center(
@@ -38,7 +59,16 @@ class _HomepageState extends State<Homepage> {
               ],
             ),
           ),
-          BottomTabs(),
+          BottomTabs(
+            selectedTab: _selectedTab,
+            tabPressed: (num) {
+              _tabsPageController.animateToPage(
+                num,
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeOutCubic,
+              );
+            },
+          ),
         ],
       ),
     );
