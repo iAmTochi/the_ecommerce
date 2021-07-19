@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:the_ecommerce/constants.dart';
+import 'package:the_ecommerce/widgets/bottom_tabs.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -13,16 +14,32 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: TextButton(
-          child: Text(
-            'Logout',
-            style: Constants.regularHeading,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: PageView(
+              children: [
+                Container(
+                  child: Center(
+                    child: Text('Home Page'),
+                  ),
+                ),
+                Container(
+                  child: Center(
+                    child: Text('Search Page'),
+                  ),
+                ),
+                Container(
+                  child: Center(
+                    child: Text('Saved Page'),
+                  ),
+                ),
+              ],
+            ),
           ),
-          onPressed: () {
-            FirebaseAuth.instance.signOut();
-          },
-        ),
+          BottomTabs(),
+        ],
       ),
     );
   }
